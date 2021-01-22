@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* 登録、ログイン・ログアウト　等 */
+.start-content {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 55, 88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.start-content .signup-title {
+  color: rgb(255, 255, 255);
+  font-size: 50px;
+}
+
+.start-content .create-account,
+.start-content .login {
+  width: 200px;
+  line-height: 50px;
+  border-radius: 30px;
+  margin: 20px 0;
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.start-content .create-account {
+  background-color: rgb(29, 161, 242);
+  color: rgb(255, 255, 255);
+}
+
+.start-content .create-account:hover {
+  background-color: rgba(29, 161, 242, 0.8);
+}
+
+.start-content .login {
+  color: rgb(29, 161, 242);
+  border: rgb(29, 161, 242) solid 1px;
+}
+
+.start-content .login:hover {
+  background-color: rgb(28, 67, 92);
+}
+
+.start-content form,
+.start-content table {
+  color: rgb(255, 255, 255);
+}
+
+.start-content .button-center {
+  text-align: center;
+}
+
+.start-content .confirm,
+.start-content .back,
+.start-content .regist {
+  margin: 10px 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 30px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 55, 88);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.start-content .confirm:hover,
+.start-content .back:hover,
+.start-content .regist:hover {
+  transform: scale(1.1, 1.1);
+}
+
+/* ホーム */
+
+header {
+  /* position: relative; */
+}
+
+.header-inner {
+  background-color: rgb(11, 108, 168);
+  display: flex;
+  padding: 0 40px;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo-title {
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.header-menu {
+  display: flex;
+  line-height: 50px;
+}
+
+.header-menu .header-menu-list {
+  display: flex;
+  margin: 0;
+}
+
+.header-menu .header-menu-list .header-item {
+  display: block;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  transition: 0.5s;
+}
+
+.header-menu .header-item:hover {
+  background-color: rgb(38, 131, 189);
+}
+
+.home-content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: rgb(0, 55, 88);
+  color: rgb(255, 255, 255);
+  align-items: center;
+  justify-content: center;
+}
