@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'twitter/style.css' %}">
   <title>{% block title %}twitter home{% endblock %}</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
         {% else %}
         <ul class="header-menu-list">
           <li><a class="header-item" href="">ログイン</a></li>
-          <li><a class="header-item" href="{% url 'polls:create' %}">ユーザー登録</a></li>
+          <li><a class="header-item" href="{% url 'twitter:create' %}">ユーザー登録</a></li>
         </ul>
         {% endif %}
       </div>
