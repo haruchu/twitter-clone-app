@@ -8,14 +8,24 @@
     <tr><td>お名前</td><td>{{form.cleaned_data.username}}</td></tr>
     <tr><td>パスワード</td><td>********</td></tr>
   </table>
-  <form action="" method="POST">
+  <!-- 修正 -->
+  <form action="{% url 'twitter:input' %}" method="POST">
     {% csrf_token %}
     {% for field in form %}
       {{field.as_hidden}}
     {% endfor %}
     <div class="button-center">
-      <button class="back" name="next" value="back" type="submit">修正</button>
-      <button class="regist" name="next" value="regist" type="submit">登録</button>
+      <button class="back" type="submit">修正</button>
+    </div>
+  </form>
+  <!-- 登録 -->
+  <form action="{% url 'twitter:create' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      {{field.as_hidden}}
+    {% endfor %}
+    <div class="button-center">
+      <button class="regist" type="submit">登録</button>
     </div>
   </form>
 {% endblock %}
