@@ -9,23 +9,21 @@
     <tr><td>パスワード</td><td>********</td></tr>
   </table>
   <!-- 修正 -->
-  <form action="{% url 'twitter:input' %}" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-      {{field.as_hidden}}
-    {% endfor %}
-    <div class="button-center">
+  <div class="button-center button-row">
+    <form action="{% url 'twitter:input' %}" method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        {{field.as_hidden}}
+      {% endfor %}
       <button class="back" type="submit">修正</button>
-    </div>
-  </form>
-  <!-- 登録 -->
-  <form action="{% url 'twitter:create' %}" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-      {{field.as_hidden}}
-    {% endfor %}
-    <div class="button-center">
+    </form>
+    <!-- 登録 -->
+    <form action="{% url 'twitter:create' %}" method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        {{field.as_hidden}}
+      {% endfor %}
       <button class="regist" type="submit">登録</button>
-    </div>
-  </form>
+    </form>
+  </div>
 {% endblock %}

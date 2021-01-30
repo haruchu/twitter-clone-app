@@ -17,10 +17,7 @@ class UserInputView(generic.FormView):
     form_class = UserCreationForm
     template_name = 'twitter/input.html'
     def form_valid(self, form):
-            return render(self.request, 'twitter/input.html', {'form': form})
-
-
-        
+        return render(self.request, 'twitter/input.html', {'form': form})
 
 class UserConfirmView(generic.FormView):
     form_class = UserCreationForm
@@ -28,24 +25,18 @@ class UserConfirmView(generic.FormView):
         return render(self.request, 'twitter/confirm.html', {'form': form})
     def form_invalid(self, form):
         return render(self.request, 'twitter/input.html', {'form': form})
-    
 
-class UserCreateView(generic.CreateView):
+class UserCreateView(generic.FormView):
     form_class = UserCreationForm
     success_url = reverse_lazy('twitter:home')
     def form_valid(self, form):
-        form.save()
         # 認証
-        user = authenticate(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password1'],
-        )
+        user = form.save()
         # ログイン
         login(self.request, user)
         return super().form_valid(form)
     def form_invalid(self, form):
         return render(self.request, 'twitter/input.html', {'form': form})
-
 
 class HomeView(LoginRequiredMixin,generic.TemplateView):
     template_name = "twitter/home.html"

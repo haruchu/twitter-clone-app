@@ -75,6 +75,10 @@ button:focus {
   text-align: center;
 }
 
+.button-row {
+  display: flex;
+}
+
 .start-content .confirm,
 .start-content .back,
 .start-content .regist {
