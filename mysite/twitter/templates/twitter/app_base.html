@@ -15,11 +15,11 @@
         {% if user.is_authenticated %}
         <ul class="header-menu-list">
           <li><a class="header-item" href="">ユーザー情報</a></li>
-          <li><a class="header-item" href="">ログアウト</a></li>
+          <li><a class="header-item" href="{% url 'logout' %}">ログアウト</a></li>
         </ul>
         {% else %}
         <ul class="header-menu-list">
-          <li><a class="header-item" href="">ログイン</a></li>
+          <li><a class="header-item" href="{% url 'login' %}">ログイン</a></li>
           <li><a class="header-item" href="{% url 'twitter:create' %}">ユーザー登録</a></li>
         </ul>
         {% endif %}
