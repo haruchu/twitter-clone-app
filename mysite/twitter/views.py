@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
+from .forms import TweetForm
+from .models import Tweet
 
 
 class IndexView(generic.TemplateView):
@@ -41,6 +43,18 @@ class UserCreateView(generic.FormView):
 class HomeView(LoginRequiredMixin,generic.TemplateView):
     template_name = "twitter/home.html"
     login_url = '/'
-
+    def home(request):
+        model = Tweet.objects.values()
+        form = TweetForm(request.POST)
+        context = {'model': model, 'form': form}
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                return redirect("home")
+            else:
+                return redirect("home")
+        else:
+            form = TweetForm()
+        return render(request, 'Twitter/home.html', context)
 
 

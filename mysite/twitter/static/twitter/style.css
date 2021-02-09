@@ -153,10 +153,60 @@ header .logo-title {
 }
 
 .home-content {
-  height: 100vh;
-  display: flex;
+  height: 100%;
   background-color: rgb(0, 55, 88);
   color: rgb(255, 255, 255);
-  align-items: center;
+}
+
+.home-content .row {
   justify-content: center;
 }
+
+.home-content .tweet-list {
+  height: 1000px;
+  justify-content: center;
+  background-color: rgb(66, 148, 199);
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.home-content .tweet-list h4 {
+  padding: 10px;
+}
+
+.home-content .tweet-list .post {
+  border: 2px solid black;
+}
+
+
+.home-content .tweet-form {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(8, 39, 58);
+  border: black 5px solid;
+  border-radius: 20px;
+  height: 200px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.home-content .tweet-form form {
+  width: 100%;
+}
+
+.home-content .tweet-form form textarea {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 10px;
+}
+
+.home-content .tweet-form form .tweet-btn {
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+}
+

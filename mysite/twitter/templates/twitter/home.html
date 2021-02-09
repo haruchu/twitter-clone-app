@@ -1,7 +1,28 @@
 {% extends 'twitter/app_base.html' %}
 
 {% block content %}
-  <div class="home-content">
-    <h2>登録成功！</h2>
+<div class="home-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 tweet-list">
+        <h4>ツイート</h4>
+        {% for model in model %}
+          <div class="post">
+            <p>{{ model.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="tweet-form col-6">
+        <form method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input class="tweet-btn" type="submit" value="ツイート">
+        </form>
+      </div>
+    </div>
   </div>
+</div>
+
 {% endblock %}
