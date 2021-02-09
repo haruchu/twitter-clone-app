@@ -8,7 +8,7 @@
     <form action="{% url 'twitter:confirm' %}" method="POST">
       {% csrf_token %}
       {{form.as_p}}
-      <div class="button-center"><button class="confirm" type="submit">確認</button></div>
+      <div class="button-center"><button class="confirm-btn" type="submit">確認</button></div>
     </form>
   </div>
 {% endblock %}

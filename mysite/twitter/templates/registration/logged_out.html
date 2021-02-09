@@ -1,9 +1,12 @@
-{% extends 'twitter/signup_base.html' %}
+{% extends 'registration/_layout.html' %}
 
-{% block title %}twitterを始めよう！{% endblock %}
+{% block title %}ログアウト画面{% endblock %}
 
 {% block content %}
-  <h1 class="signup-title">twitterを始めよう</h1>
+<div class="loggedout-content">
+  <h1 class="loggedout-title">ログアウトしました</h1>
   <a href="{% url 'twitter:input' %}" class="create-account-btn-lg">アカウント作成</a>
   <a href="{% url 'login' %}" class="login-btn-lg">ログイン</a>
+</div>
 {% endblock %}
+

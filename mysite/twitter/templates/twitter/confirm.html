@@ -15,7 +15,7 @@
       {% for field in form %}
         {{field.as_hidden}}
       {% endfor %}
-      <button class="back" type="submit">修正</button>
+      <button class="back-btn" type="submit">修正</button>
     </form>
     <!-- 登録 -->
     <form action="{% url 'twitter:create' %}" method="POST">
@@ -23,7 +23,7 @@
       {% for field in form %}
         {{field.as_hidden}}
       {% endfor %}
-      <button class="regist" type="submit">登録</button>
+      <button class="regist-btn" type="submit">登録</button>
     </form>
   </div>
 {% endblock %}
