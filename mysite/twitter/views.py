@@ -43,18 +43,32 @@ class UserCreateView(generic.FormView):
 class HomeView(LoginRequiredMixin,generic.TemplateView):
     template_name = "twitter/home.html"
     login_url = '/'
-    def home(request):
-        model = Tweet.objects.values()
-        form = TweetForm(request.POST)
-        context = {'model': model, 'form': form}
-        if request.method == 'POST':
-            if form.is_valid():
-                form.save()
-                return redirect("home")
+    
+    def get_context_data(self, **kwargs):
+        form = TweetForm(self.request.POST)
+        # TemplateViewにあるcontextを取得
+        context = super().get_context_data(**kwargs)
+        # contextにformというキーでformという変数を追加
+        context["form"] = form
+        # contextにtweetsというキーでツイート一覧を追加
+        context["tweets"] = Tweet.objects.all()
+        return context
+
+class CreateTweet(generic.FormView):
+        form = TweetForm
+        success_url = reverse_lazy('twitter:home')
+        def form_valid(self, form):
+            form = TweetForm(self.request.POST)
+            if request.method == 'POST':
+                if form.is_valid():
+                    form.save()
+                    return redirect("home")
+                else:
+                    return redirect("home")
             else:
-                return redirect("home")
-        else:
-            form = TweetForm()
-        return render(request, 'Twitter/home.html', context)
+                form = TweetForm()
+            return render(self.request, 'Twitter/home.html', {'form': form})
+
+
 
 

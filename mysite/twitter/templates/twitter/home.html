@@ -6,16 +6,16 @@
     <div class="row">
       <div class="col-6 tweet-list">
         <h4>ツイート</h4>
-        {% for model in model %}
+        {% for tweet in tweets %}
           <div class="post">
-            <p>{{ model.text }}</p>
+            <p>{{ tweet.text }}</p>
           </div>
         {% endfor %}
       </div>
     </div>
     <div class="row">
       <div class="tweet-form col-6">
-        <form method="POST">
+        <form method="POST" action="{% url 'twitter:tweet' %}">
           {% csrf_token %}
           {{form.as_p}}
           <input class="tweet-btn" type="submit" value="ツイート">

@@ -164,6 +164,7 @@ header .logo-title {
 
 .home-content .tweet-list {
   height: 1000px;
+  padding: 4px;
   justify-content: center;
   background-color: rgb(66, 148, 199);
   border-left: 2px solid black;
@@ -174,8 +175,14 @@ header .logo-title {
   padding: 10px;
 }
 
+.home-content .tweet-list p {
+  margin: 0;
+}
+
 .home-content .tweet-list .post {
   border: 2px solid black;
+  margin: 5px 0;
+  padding: 10px;
 }
 
 
