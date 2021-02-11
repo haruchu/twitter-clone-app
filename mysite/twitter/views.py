@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -40,34 +41,37 @@ class UserCreateView(generic.FormView):
     def form_invalid(self, form):
         return render(self.request, 'twitter/input.html', {'form': form})
 
-class HomeView(LoginRequiredMixin,generic.TemplateView):
+class HomeView(LoginRequiredMixin,generic.FormView) :
     template_name = "twitter/home.html"
+    form_class = TweetForm
     login_url = '/'
-    
     def get_context_data(self, **kwargs):
-        form = TweetForm(self.request.POST)
+        form_class = TweetForm(self.request.POST)
         # TemplateViewにあるcontextを取得
         context = super().get_context_data(**kwargs)
         # contextにformというキーでformという変数を追加
-        context["form"] = form
+        context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
         return context
 
 class CreateTweet(generic.FormView):
-        form = TweetForm
         success_url = reverse_lazy('twitter:home')
+        form_class = TweetForm
         def form_valid(self, form):
-            form = TweetForm(self.request.POST)
-            if request.method == 'POST':
+            form_class = TweetForm(self.request.POST)
+            if self.request.method == 'POST':
                 if form.is_valid():
-                    form.save()
-                    return redirect("home")
+                    post = form.save()
+                    return redirect('twitter:home')
                 else:
-                    return redirect("home")
+                    return redirect('twitter:home')
             else:
-                form = TweetForm()
+                form_class = TweetForm
             return render(self.request, 'Twitter/home.html', {'form': form})
+        def form_invalid(self, form):
+            return render(self.request, 'twitter/home.html', {'form': form})
+
 
 
 

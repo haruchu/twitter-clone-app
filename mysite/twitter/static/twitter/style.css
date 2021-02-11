@@ -163,12 +163,10 @@ header .logo-title {
 }
 
 .home-content .tweet-list {
-  height: 1000px;
+  height: 100vh;
   padding: 4px;
   justify-content: center;
-  background-color: rgb(66, 148, 199);
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  margin-bottom: 400px;
 }
 
 .home-content .tweet-list h4 {
@@ -180,7 +178,9 @@ header .logo-title {
 }
 
 .home-content .tweet-list .post {
+  background-color: rgb(66, 148, 199);
   border: 2px solid black;
+  border-radius: 30px;
   margin: 5px 0;
   padding: 10px;
 }
@@ -191,29 +191,44 @@ header .logo-title {
   text-align: center;
   justify-content: center;
   align-items: center;
-  background-color: rgb(8, 39, 58);
+  background-color: rgb(66, 148, 199);
   border: black 5px solid;
   border-radius: 20px;
   height: 200px;
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: 5px;
   z-index: 2;
 }
 
 .home-content .tweet-form form {
   width: 100%;
+  position: relative;
 }
 
-.home-content .tweet-form form textarea {
+.home-content .tweet-form .errorlist,
+.home-content .tweet-form form p label {
+  display: none;
+}
+
+.home-content .tweet-form form p,
+.home-content .tweet-form form input {
+  margin: 0;
+}
+
+.home-content .tweet-form form p {
+  height: 100%;
+  margin: 8px 0
+}
+
+.home-content .tweet-form p textarea {
   width: 100%;
-  height: 120px;
-  margin-bottom: 10px;
 }
 
 .home-content .tweet-form form .tweet-btn {
   height: 40px;
   width: 100px;
   border-radius: 20px;
+  margin-bottom: 8px;
 }
 

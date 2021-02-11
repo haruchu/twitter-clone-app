@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Tweet(models.Model):
-    text = models.CharField(max_length=100)
+    text = models.CharField(max_length=200)
     def __str__(self):
         return self.text
 
