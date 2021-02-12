@@ -46,7 +46,8 @@ class HomeView(LoginRequiredMixin,generic.FormView) :
     form_class = TweetForm
     login_url = '/'
     def get_context_data(self, **kwargs):
-        form_class = TweetForm(self.request.POST)
+        initial_dict = {'user': self.request.user}
+        form_class = TweetForm(self.request.POST or None, initial=initial_dict)
         # TemplateViewにあるcontextを取得
         context = super().get_context_data(**kwargs)
         # contextにformというキーでformという変数を追加
@@ -62,6 +63,8 @@ class CreateTweet(generic.FormView):
             form_class = TweetForm(self.request.POST)
             if self.request.method == 'POST':
                 if form.is_valid():
+                    post = form_class.save(commit=False)
+                    post.user = self.request.user
                     post = form.save()
                     return redirect('twitter:home')
                 else:

@@ -11,7 +11,7 @@ li {
   list-style: none;
 }
 
-a {
+a,a:hover {
   text-decoration: none;
 }
 
@@ -173,8 +173,8 @@ header .logo-title {
   padding: 10px;
 }
 
-.home-content .tweet-list p {
-  margin: 0;
+.home-content .tweet-list .post p {
+  margin: 8px 0 0;
 }
 
 .home-content .tweet-list .post {
@@ -183,6 +183,22 @@ header .logo-title {
   border-radius: 30px;
   margin: 5px 0;
   padding: 10px;
+}
+
+.home-content .tweet-list .post .user {
+  width: 100%;
+  height: 100%;
+}
+
+.home-content .tweet-list .post .user a {
+  color: white;
+}
+
+.home-content .tweet-list .post .user a span {
+  background-color: rgb(26, 95, 224);
+  padding: 8px;
+  margin-bottom: 4px;
+  border-radius: 20px;
 }
 
 
@@ -207,7 +223,8 @@ header .logo-title {
 }
 
 .home-content .tweet-form .errorlist,
-.home-content .tweet-form form p label {
+.home-content .tweet-form form p label,
+.home-content .tweet-form form input + p {
   display: none;
 }
 
