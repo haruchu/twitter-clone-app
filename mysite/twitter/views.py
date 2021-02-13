@@ -61,17 +61,10 @@ class CreateTweet(generic.FormView):
         form_class = TweetForm
         def form_valid(self, form):
             form_class = TweetForm(self.request.POST)
-            if self.request.method == 'POST':
-                if form.is_valid():
-                    post = form_class.save(commit=False)
-                    post.user = self.request.user
-                    post = form.save()
-                    return redirect('twitter:home')
-                else:
-                    return redirect('twitter:home')
-            else:
-                form_class = TweetForm
-            return render(self.request, 'Twitter/home.html', {'form': form})
+            post = form_class.save(commit=False)
+            post.user = self.request.user
+            post = form.save()
+            return redirect('twitter:home')
         def form_invalid(self, form):
             return render(self.request, 'twitter/home.html', {'form': form})
 
