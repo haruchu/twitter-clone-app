@@ -11,7 +11,7 @@ li {
   list-style: none;
 }
 
-a {
+a,a:hover {
   text-decoration: none;
 }
 
@@ -153,10 +153,99 @@ header .logo-title {
 }
 
 .home-content {
-  height: 100vh;
-  display: flex;
+  height: 100%;
   background-color: rgb(0, 55, 88);
   color: rgb(255, 255, 255);
-  align-items: center;
+}
+
+.home-content .row {
   justify-content: center;
 }
+
+.home-content .tweet-list {
+  height: 100vh;
+  padding: 4px;
+  justify-content: center;
+  margin-bottom: 400px;
+}
+
+.home-content .tweet-list h4 {
+  padding: 10px;
+}
+
+.home-content .tweet-list .post p {
+  margin: 8px 0 0;
+}
+
+.home-content .tweet-list .post {
+  background-color: rgb(66, 148, 199);
+  border: 2px solid black;
+  border-radius: 30px;
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.home-content .tweet-list .post .user {
+  width: 100%;
+  height: 100%;
+}
+
+.home-content .tweet-list .post .user a {
+  color: white;
+}
+
+.home-content .tweet-list .post .user a span {
+  background-color: rgb(26, 95, 224);
+  padding: 8px;
+  margin-bottom: 4px;
+  border-radius: 20px;
+}
+
+
+.home-content .tweet-form {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(66, 148, 199);
+  border: black 5px solid;
+  border-radius: 20px;
+  height: 200px;
+  width: 100%;
+  position: fixed;
+  bottom: 5px;
+  z-index: 2;
+}
+
+.home-content .tweet-form form {
+  width: 100%;
+  position: relative;
+}
+
+.home-content .tweet-form .errorlist,
+.home-content .tweet-form form p label,
+.home-content .tweet-form form input + p {
+  display: none;
+}
+
+.home-content .tweet-form form p,
+.home-content .tweet-form form input {
+  margin: 0;
+}
+
+.home-content .tweet-form form p {
+  height: 100%;
+  margin: 8px 0
+}
+
+.home-content .tweet-form p textarea {
+  width: 100%;
+}
+
+.home-content .tweet-form form .tweet-btn {
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
