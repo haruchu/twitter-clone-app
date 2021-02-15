@@ -1,0 +1,15 @@
+{% extends 'twitter/app_base.html' %}
+
+{% block content %}
+<div class="home-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 user-list">
+        <h4>{{ username }}</h4>
+        <h4>{{ object.name }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

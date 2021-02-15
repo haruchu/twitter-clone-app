@@ -11,7 +11,7 @@
 <body>
   <header>
     <nav class="header-inner">
-      <a href="" class="logo-title">Twitter</a>
+      <a href="{% url 'twitter:home' %" class="logo-title">Twitter</a>
       <div class="header-menu">
         {% if user.is_authenticated %}
         <ul class="header-menu-list">

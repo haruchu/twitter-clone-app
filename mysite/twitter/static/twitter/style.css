@@ -162,10 +162,14 @@ header .logo-title {
   justify-content: center;
 }
 
-.home-content .tweet-list {
+.home-content .tweet-list,
+.home-content .user-list {
   height: 100vh;
   padding: 4px;
   justify-content: center;
+}
+
+.home-content .tweet-list {
   margin-bottom: 400px;
 }
 

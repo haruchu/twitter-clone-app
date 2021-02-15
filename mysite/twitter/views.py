@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.views import generic
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
@@ -8,7 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from .forms import TweetForm
-from .models import Tweet
+from .models import Tweet,User
+from .helpers import get_current_user
+
 
 
 class IndexView(generic.TemplateView):
@@ -57,17 +59,29 @@ class HomeView(LoginRequiredMixin,generic.FormView) :
         return context
 
 class CreateTweet(generic.FormView):
-        success_url = reverse_lazy('twitter:home')
-        form_class = TweetForm
-        def form_valid(self, form):
-            form_class = TweetForm(self.request.POST)
-            post = form_class.save(commit=False)
-            post.user = self.request.user
-            post = form.save()
-            return redirect('twitter:home')
-        def form_invalid(self, form):
-            return render(self.request, 'twitter/home.html', {'form': form})
+    success_url = reverse_lazy('twitter:home')
+    form_class = TweetForm
+    def form_valid(self, form):
+        form_class = TweetForm(self.request.POST)
+        post = form_class.save(commit=False)
+        post.user = self.request.user
+        post = form.save()
+        return redirect('twitter:home')
+    def form_invalid(self, form):
+        return render(self.request, 'twitter/home.html', {'form': form})
 
+class ProfileView(generic.DetailView):
+    model = User
+    template_name = "twitter/profile.html"
+    # context_object_name = 'user'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.kwargs['username']
+        context['username'] = username
+        context['user'] = get_current_user(self.request)
+        return context
 
 
 
