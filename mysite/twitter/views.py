@@ -57,6 +57,9 @@ class HomeView(LoginRequiredMixin,generic.FormView) :
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
         return context
+    def get_success_url(self):
+        return reverse('twitter:profile', kwargs={'pk': self.user.id})
+
 
 class CreateTweet(generic.FormView):
     success_url = reverse_lazy('twitter:home')
@@ -73,10 +76,8 @@ class CreateTweet(generic.FormView):
 class ProfileView(generic.DetailView):
     model = User
     template_name = "twitter/profile.html"
-    # context_object_name = 'user'
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
     def get_context_data(self,**kwargs):
+        kwargs= self.id
         context = super().get_context_data(**kwargs)
         username = self.kwargs['username']
         context['username'] = username
