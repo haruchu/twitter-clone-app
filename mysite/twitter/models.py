@@ -19,11 +19,11 @@ class Tweet(models.Model):
 
 
 class User(AbstractBaseUser):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
-    def get_absolute_url(self):
-        return reverse('twitter:profile', kwargs={'username': self.user.username})
+    # def get_absolute_url(self):
+    #     return reverse('twitter:profile', kwargs={'username': self.user.username})
     # def save(self, *args, **kwargs):
     #     if not self.slug:
     #         self.slug = slugify(self.user)

@@ -77,10 +77,9 @@ class ProfileView(generic.DetailView):
     model = User
     template_name = "twitter/profile.html"
     def get_context_data(self,**kwargs):
-        kwargs= self.id
         context = super().get_context_data(**kwargs)
         username = self.kwargs['username']
-        context['username'] = username
+        context['user'] = User.objects.get(pk=pk)
         context['user'] = get_current_user(self.request)
         return context
 
