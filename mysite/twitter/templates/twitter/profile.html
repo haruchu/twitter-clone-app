@@ -5,7 +5,15 @@
   <div class="container">
     <div class="row">
       <div class="col-6 user-list">
-        <h4>{{ user.username }}</h4>
+        <h4>自分   {{ current_user }}</h4>
+        <h4>相手   {{ user.username }}</h4>
+        <h4>相手user_id   {{ user_id }}</h4>
+        <h4>connected　{{ connected }}</h4>
+        {% if connected %}
+          <a href="{% url 'twitter:unfollow' user.id %}" class="btn btn-dark">フォロー解除</a>
+        {% else %}
+          <a href="{% url 'twitter:follow' user.id %}" class="btn btn-light">フォロー</a>
+        {% endif %}
       </div>
     </div>
   </div>

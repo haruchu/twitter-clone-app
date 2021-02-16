@@ -7,8 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
+from django.contrib import messages
 from .forms import TweetForm
-from .models import Tweet,User,FollowUser
+from .models import Tweet,FriendShip
 from .helpers import get_current_user
 
 
@@ -76,13 +77,41 @@ class CreateTweet(generic.FormView):
 class ProfileView(generic.DetailView):
     model = User
     template_name = "twitter/profile.html"
-    # def get_context_data(self,**kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # username = self.kwargs['username']
-    #     context['user'] = FollowUser.objects.get(pk=user. pk)
-    #     # context['user'] = get_current_user(self.request)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        user_id = self.kwargs['pk']
+        context['user_id'] = user_id
+        context['current_user'] = get_current_user(self.request)
+        context['followee'] = FriendShip.objects.filter(follower__username=user_id).count()
+        context['followers'] = FriendShip.objects.filter(followee__username=user_id).count()
+        if user_id is not context['current_user'].username:
+            result = FriendShip.objects.filter(follower__username=context['current_user'].username).filter(followee__username=user_id)
+            context['connected'] = True if result else False
+        return context
 
+def follow_view(request, *args, **kwargs):
+    follower = User.objects.get(username=request.user)
+    followee = User.objects.get(User.id==kwargs['pk'])
+    if follower == following:
+        messages.warning(request, '自分自身はフォローできません')
+    else:
+        created = FriendShip.objects.get_or_create(follower=follower, followee=followee)
+    if (created):
+        messages.success(request, '{}をフォローしました'.format(followee.username))
+    else:
+        messages.warning(request, 'あなたはすでに{}をフォローしています'.format(followee.username))
+    return HttpResponseRedirect(reverse_lazy('twitter:profile', kwargs={'pk': followee.id}))
+
+def unfollow_view(request, *args, **kwargs):
+    follower = User.objects.get(username=request.user)
+    followee = User.objects.get(User.id==kwargs['pk'])
+    if follower == following:
+        messages.warning(request, '自分自身のフォローを外せません')
+    else:
+        unfollow = FriendShip.objects.get(follower=follower, followee=followee)
+        unfollow.delete()
+        messages.success(request, 'あなたは{}のフォローを外しました'.format(followee.username))
+    return HttpResponseRedirect(reverse_lazy('twitter:profile', kwargs={'pk': followee.id}))
 
 
 
