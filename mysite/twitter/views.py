@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from .forms import TweetForm
-from .models import Tweet,User
+from .models import Tweet,User,FollowUser
 from .helpers import get_current_user
 
 
@@ -76,12 +76,12 @@ class CreateTweet(generic.FormView):
 class ProfileView(generic.DetailView):
     model = User
     template_name = "twitter/profile.html"
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        username = self.kwargs['username']
-        context['user'] = User.objects.get(pk=pk)
-        context['user'] = get_current_user(self.request)
-        return context
+    # def get_context_data(self,**kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # username = self.kwargs['username']
+    #     context['user'] = FollowUser.objects.get(pk=user. pk)
+    #     # context['user'] = get_current_user(self.request)
+    #     return context
 
 
 

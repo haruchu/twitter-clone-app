@@ -18,7 +18,7 @@ class Tweet(models.Model):
     #     return reverse('user_detail', kwargs={'slug': self.slug})
 
 
-class User(AbstractBaseUser):
+class FollowUser(AbstractBaseUser):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
