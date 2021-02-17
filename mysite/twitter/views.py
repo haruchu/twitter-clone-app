@@ -89,10 +89,6 @@ class ProfileView(generic.DetailView):
         context['follower'] = FriendShip.objects.filter(follower=followee).count()
         context['followees'] = FriendShip.objects.filter(followee=followee)
         context['followers'] = FriendShip.objects.filter(follower=followee)
-        print(context['followee'] )
-        print(context['follower'] )
-        print(context['followees'] )
-        print(context['followers'] )
         if user_id is not context['current_user'].username:
             result = FriendShip.objects.filter(follower=follower).filter(followee=followee)
             context['connected'] = True if result else False
