@@ -23,7 +23,7 @@
           <div class="scrollable">
             <ul class="follower-members">
               {% for f in followers %}
-              <li class="follower-member">{{ f }}</li>
+              <li class="follower-member">{{ f.followee }}</li>
               {% endfor %}
             </ul>
           </div>
@@ -33,7 +33,7 @@
           <div class="scrollable">
             <ul class="followee-members">
               {% for f in followees %}
-              <li class="followee-member">{{ f }}</li>
+              <li class="followee-member">{{ f.follower }}</li>
               {% endfor %}
             </ul>
           </div>
