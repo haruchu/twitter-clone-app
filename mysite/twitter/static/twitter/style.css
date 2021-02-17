@@ -163,7 +163,8 @@ header .logo-title {
 }
 
 .home-content .tweet-list,
-.home-content .user-list {
+.home-content .user-list,
+.home-content .user-profile {
   height: 100vh;
   padding: 4px;
   justify-content: center;
@@ -253,3 +254,63 @@ header .logo-title {
   margin-bottom: 8px;
 }
 
+/* プロフィール画面 */
+
+.home-content .user-profile {
+  margin: 12px;
+  position: relative;
+}
+
+.home-content .user-profile .user-title {
+  margin-bottom: 40px;
+}
+
+.home-content .user-profile .btn {
+  float: right;
+}
+
+.home-content .user-profile .follower-content {
+  width: 100%;
+  height: 180px;
+  position: absolute;
+  top: 250px;
+}
+
+.home-content .user-profile .followee-content {
+  width: 100%;
+  height: 180px;
+  position: absolute;
+  top: 500px;
+}
+
+.home-content .user-profile .follower-content .follower-num,
+.home-content .user-profile .followee-content .followee-num {
+  color: rgb(66, 148, 199);
+  margin-left: 12px;
+}
+
+.home-content .user-profile .follower-content .scrollable,
+.home-content .user-profile .followee-content .scrollable {
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+}
+
+.home-content .user-profile .follower-content .follower-members,
+.home-content .user-profile .followee-content .followee-members {
+  padding: 0;
+}
+
+.home-content .user-profile .follower-content .follower-member,
+.home-content .user-profile .followee-content .followee-member {
+  border: black 2px solid;
+  border-top: none;
+  margin: 0 12px;
+  padding: 8px;
+  background-color: rgb(66, 148, 199);
+}
+
+.home-content .user-profile .follower-content .follower-member:first-child,
+.home-content .user-profile .followee-content .followee-member:first-child {
+  border: black 2px solid;
+}

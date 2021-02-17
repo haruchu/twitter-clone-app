@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.http import HttpResponseRedirect, Http404
 from django.views import generic
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
@@ -78,40 +79,49 @@ class ProfileView(generic.DetailView):
     model = User
     template_name = "twitter/profile.html"
     def get_context_data(self, **kwargs):
+        follower = User.objects.get(username=self.request.user)
+        followee = User.objects.get(id=self.kwargs['pk'])
         context = super(ProfileView, self).get_context_data(**kwargs)
         user_id = self.kwargs['pk']
         context['user_id'] = user_id
         context['current_user'] = get_current_user(self.request)
-        context['followee'] = FriendShip.objects.filter(follower__username=user_id).count()
-        context['followers'] = FriendShip.objects.filter(followee__username=user_id).count()
+        context['followee'] = FriendShip.objects.filter(followee=followee).count()
+        context['follower'] = FriendShip.objects.filter(follower=followee).count()
+        context['followees'] = FriendShip.objects.filter(followee=followee)
+        context['followers'] = FriendShip.objects.filter(follower=followee)
+        print(context['followee'] )
+        print(context['follower'] )
+        print(context['followees'] )
+        print(context['followers'] )
         if user_id is not context['current_user'].username:
-            result = FriendShip.objects.filter(follower__username=context['current_user'].username).filter(followee__username=user_id)
+            result = FriendShip.objects.filter(follower=follower).filter(followee=followee)
             context['connected'] = True if result else False
         return context
 
+
 def follow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)
-    followee = User.objects.get(User.id==kwargs['pk'])
-    if follower == following:
+    followee = User.objects.get(id=kwargs['pk'])
+    if follower == followee:
         messages.warning(request, '自分自身はフォローできません')
-    else:
-        created = FriendShip.objects.get_or_create(follower=follower, followee=followee)
+        return redirect('twitter:profile', pk=followee.id)
+    created = FriendShip.objects.get_or_create(follower=follower, followee=followee)
     if (created):
         messages.success(request, '{}をフォローしました'.format(followee.username))
     else:
         messages.warning(request, 'あなたはすでに{}をフォローしています'.format(followee.username))
-    return HttpResponseRedirect(reverse_lazy('twitter:profile', kwargs={'pk': followee.id}))
+    return redirect('twitter:profile', pk=followee.id)
 
 def unfollow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)
-    followee = User.objects.get(User.id==kwargs['pk'])
-    if follower == following:
+    followee = User.objects.get(id=kwargs['pk'])
+    if follower == followee:
         messages.warning(request, '自分自身のフォローを外せません')
     else:
         unfollow = FriendShip.objects.get(follower=follower, followee=followee)
         unfollow.delete()
         messages.success(request, 'あなたは{}のフォローを外しました'.format(followee.username))
-    return HttpResponseRedirect(reverse_lazy('twitter:profile', kwargs={'pk': followee.id}))
+    return redirect('twitter:profile', pk=followee.id)
 
 
 
