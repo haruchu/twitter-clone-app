@@ -296,6 +296,24 @@ header .logo-title {
   height: 100%;
 }
 
+.home-content .user-profile .follower-content .scrollable::-webkit-scrollbar,
+.home-content .user-profile .followee-content .scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home-content .user-profile .follower-content .scrollable::-webkit-scrollbar-track,
+.home-content .user-profile .followee-content .scrollable::-webkit-scrollbar-track {
+  background: rgba(#fff,0.1);
+  border: none;
+}
+
+.home-content .user-profile .follower-content .scrollable::-webkit-scrollbar-thumb,
+.home-content .user-profile .followee-content .scrollable::-webkit-scrollbar-thumb {
+  background: rgba(#fff,0.1);
+  border-radius: 8px;
+  box-shadow: inset 0 0 4px rgba(255,255,255,0.8);
+}
+
 .home-content .user-profile .follower-content .follower-members,
 .home-content .user-profile .followee-content .followee-members {
   padding: 0;
