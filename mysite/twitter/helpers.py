@@ -4,6 +4,7 @@ from django.contrib.sessions.models import Session
 
 from .models import User
 
+
 def get_current_user(request=None):
     if not request:
         return None

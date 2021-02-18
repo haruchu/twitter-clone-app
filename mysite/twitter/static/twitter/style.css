@@ -11,7 +11,8 @@ li {
   list-style: none;
 }
 
-a,a:hover {
+a,
+a:hover {
   text-decoration: none;
 }
 
@@ -206,7 +207,6 @@ header .logo-title {
   border-radius: 20px;
 }
 
-
 .home-content .tweet-form {
   display: flex;
   text-align: center;
@@ -240,7 +240,7 @@ header .logo-title {
 
 .home-content .tweet-form form p {
   height: 100%;
-  margin: 8px 0
+  margin: 8px 0;
 }
 
 .home-content .tweet-form p textarea {
@@ -301,17 +301,29 @@ header .logo-title {
   width: 8px;
 }
 
-.home-content .user-profile .follower-content .scrollable::-webkit-scrollbar-track,
-.home-content .user-profile .followee-content .scrollable::-webkit-scrollbar-track {
-  background: rgba(#fff,0.1);
+.home-content
+  .user-profile
+  .follower-content
+  .scrollable::-webkit-scrollbar-track,
+.home-content
+  .user-profile
+  .followee-content
+  .scrollable::-webkit-scrollbar-track {
+  background: rgba(#fff, 0.1);
   border: none;
 }
 
-.home-content .user-profile .follower-content .scrollable::-webkit-scrollbar-thumb,
-.home-content .user-profile .followee-content .scrollable::-webkit-scrollbar-thumb {
-  background: rgba(#fff,0.1);
+.home-content
+  .user-profile
+  .follower-content
+  .scrollable::-webkit-scrollbar-thumb,
+.home-content
+  .user-profile
+  .followee-content
+  .scrollable::-webkit-scrollbar-thumb {
+  background: rgba(#fff, 0.1);
   border-radius: 8px;
-  box-shadow: inset 0 0 4px rgba(255,255,255,0.8);
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
 .home-content .user-profile .follower-content .follower-members,
