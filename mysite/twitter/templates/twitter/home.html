@@ -8,7 +8,7 @@
         <h4>ツイート</h4>
         {% for tweet in tweets %}
           <div class="post">
-            <div class="user"><a href="#"><span>{{tweet.user}}</span></a></div>
+            <div class="user"><a href={% url 'twitter:profile' tweet.user.id %}><span>{{tweet.user}}</span></a></div>
             <p>{{ tweet.text }}</p>
           </div>
         {% endfor %}

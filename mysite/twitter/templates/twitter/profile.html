@@ -1,0 +1,49 @@
+{% extends 'twitter/app_base.html' %}
+
+{% block content %}
+<div class="home-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 user-profile">
+        <h4 class="user-title">{{ user.username }}　のプロフィール</h4>
+        {% if current_user != user  %}
+          {% if connected %}
+            <a href="{% url 'twitter:unfollow' user.id %}" class="btn btn-dark">フォロー解除</a>
+          {% else %}
+            <a href="{% url 'twitter:follow' user.id %}" class="btn btn-light">フォロー</a>
+          {% endif %}
+        {% endif %}
+        {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <div></div>
+        <div class="follower-content">
+          <h5>{{ user.username }}がフォローしている人<span class="follower-num">{{ follower }}</span> </h5>
+          <div class="scrollable">
+            <ul class="follower-members">
+              {% for f in followers %}
+              <li class="follower-member">{{ f.followee }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="followee-content">
+          <h5>{{ user.username }}をフォローしている人 <span class="followee-num">{{ followee }}</span> </h5>
+          <div class="scrollable">
+            <ul class="followee-members">
+              {% for f in followees %}
+              <li class="followee-member">{{ f.follower }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
