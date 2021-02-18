@@ -15,7 +15,7 @@ class FriendShip(models.Model):
     class Meta:
         unique_together = ('follower', 'followee')
     def __str__(self):
-        return (self.follower,"⇔",self.followee)
+        return (self.follower,"⇔",self.followee )
 
 
 
