@@ -10,6 +10,9 @@
           <div class="post">
             <div class="user"><a href={% url 'twitter:profile' tweet.user.id %}><span>{{tweet.user}}</span></a></div>
             <p>{{ tweet.text }}</p>
+            <div class="btn-right">
+              <a href="{% url 'twitter:like' tweet.pk %}" class="like-btn">いいね<span class="like-num">{{tweet.like}}</span></a>
+            </div>
           </div>
         {% endfor %}
       </div>

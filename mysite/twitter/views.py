@@ -112,6 +112,24 @@ class ProfileView(generic.DetailView):
         return context
 
 
+def like(request,pk):
+    model = User
+    user = User.objects.get(username=request.user)
+    try:
+        tweet = Tweet.objects.get(pk=pk)
+    except Tweet.DoesNotExist:
+        raise Http404
+    if tweet.liked_user == user:
+        return redirect('twitter:home')
+    else:
+        print(tweet.like)
+    
+        tweet.like += 1
+        tweet.liked_user = user
+        tweet.save()
+    return redirect('twitter:home')
+
+
 def follow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)
     followee = User.objects.get(id=kwargs['pk'])
