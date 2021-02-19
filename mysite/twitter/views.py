@@ -67,6 +67,7 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
+        context["user"] = self.request.user
         return context
 
     def get_success_url(self):
@@ -123,7 +124,7 @@ def like(request,pk):
         return redirect('twitter:home')
     else:
         print(tweet.like)
-    
+
         tweet.like += 1
         tweet.liked_user = user
         tweet.save()
