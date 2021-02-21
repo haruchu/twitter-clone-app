@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from .forms import TweetForm
-from .models import Tweet, FriendShip
+from .models import Tweet, FriendShip, Like
 from .helpers import get_current_user
 
 
@@ -67,7 +67,8 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
-        context["user"] = self.request.user
+        context['check'] = Like.objects.filter(
+            user=self.request.user, tweet=self.kwargs.get('tweet_id')).exists()
         return context
 
     def get_success_url(self):
@@ -113,21 +114,45 @@ class ProfileView(generic.DetailView):
         return context
 
 
-def like(request,pk):
-    model = User
-    user = User.objects.get(username=request.user)
-    try:
-        tweet = Tweet.objects.get(pk=pk)
-    except Tweet.DoesNotExist:
-        raise Http404
-    if tweet.liked_user == user:
-        return redirect('twitter:home')
-    else:
-        print(tweet.like)
+# def like(request,pk):
+#     model = User
+#     user = User.objects.get(username=request.user)
+#     try:
+#         tweet = Tweet.objects.get(pk=pk)
+#     except Tweet.DoesNotExist:
+#         raise Http404
+#     if tweet.liked_user == user:
+#         unlike = Tweet.objects.filter(liked_user=user).delete()
+#         unlike.delete()
+#         tweet.like -= 1
+#         tweet.save()
+#         return redirect('twitter:home')
+#     else:
+#         tweet.like += 1
+#         tweet.liked_user = user
+#         tweet.save()
+#     return redirect('twitter:home')
 
-        tweet.like += 1
-        tweet.liked_user = user
+def like(request, tweet_id):
+    tweet = Tweet.objects.get(pk=tweet_id)
+    is_like = Like.objects.filter(
+        user=request.user).filter(tweet=tweet).count()
+    # unlike
+    if is_like > 0:
+        liking = Like.objects.get(tweet_id=tweet_id, user=request.user)
+        liking.delete()
+        tweet.like -= 1
         tweet.save()
+        # messages.warning(request, 'いいねを取り消しました')
+        return redirect('twitter:home')
+    # like
+    tweet.like += 1
+    tweet.save()
+    like = Like()
+    like.user = request.user
+    like.tweet = tweet
+    like.save()
+    # messages.success(request, 'いいね！しました')
     return redirect('twitter:home')
 
 
