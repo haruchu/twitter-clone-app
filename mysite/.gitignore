@@ -1,3 +1,11 @@
 
-backend/twitter-clone-app/mysite/*.pyc
-backend/twitter-clone-app/mysite/db.sqlite3
+# すべてをignore
+*
+# すべてのディレクトリをホワイトリストに追加する
+!*/
+# ホワイトリストに入れたいファイルを戸別に許可する
+!.gitignore
+!manage.py
+!/mysite/**
+!/twitter/**
+/twitter/*.pyc
