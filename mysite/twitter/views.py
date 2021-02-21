@@ -67,6 +67,7 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
+        context['check'] = Like.objects.filter(user=self.request.user, tweet=self.kwargs.get('tweet_id')).exists()
         return context
     def get_success_url(self):
         return reverse('twitter:profile', kwargs={'pk': self.user.id})
