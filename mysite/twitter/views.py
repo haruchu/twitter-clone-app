@@ -67,10 +67,7 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
-        context['check'] = Like.objects.filter(
-            user=self.request.user, tweet=self.kwargs.get('tweet_id')).exists()
         return context
-
     def get_success_url(self):
         return reverse('twitter:profile', kwargs={'pk': self.user.id})
 
@@ -113,26 +110,6 @@ class ProfileView(generic.DetailView):
             context['connected'] = True if result else False
         return context
 
-
-# def like(request,pk):
-#     model = User
-#     user = User.objects.get(username=request.user)
-#     try:
-#         tweet = Tweet.objects.get(pk=pk)
-#     except Tweet.DoesNotExist:
-#         raise Http404
-#     if tweet.liked_user == user:
-#         unlike = Tweet.objects.filter(liked_user=user).delete()
-#         unlike.delete()
-#         tweet.like -= 1
-#         tweet.save()
-#         return redirect('twitter:home')
-#     else:
-#         tweet.like += 1
-#         tweet.liked_user = user
-#         tweet.save()
-#     return redirect('twitter:home')
-
 def like(request, tweet_id):
     tweet = Tweet.objects.get(pk=tweet_id)
     is_like = Like.objects.filter(
@@ -143,7 +120,6 @@ def like(request, tweet_id):
         liking.delete()
         tweet.like -= 1
         tweet.save()
-        # messages.warning(request, 'いいねを取り消しました')
         return redirect('twitter:home')
     # like
     tweet.like += 1
@@ -152,7 +128,6 @@ def like(request, tweet_id):
     like.user = request.user
     like.tweet = tweet
     like.save()
-    # messages.success(request, 'いいね！しました')
     return redirect('twitter:home')
 
 

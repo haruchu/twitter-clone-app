@@ -213,7 +213,6 @@ header .logo-title {
   justify-content: flex-end;
 }
 
-.home-content .tweet-list .post .prev-like-btn,
 .home-content .tweet-list .post .like-btn {
   padding: 8px;
   margin-top: 8px;
@@ -222,30 +221,23 @@ header .logo-title {
   transition: 0.5s;
 }
 
-.home-content .tweet-list .post .prev-like-btn {
+.home-content .tweet-list .post .like-btn {
   color: pink;
 }
 
-.home-content .tweet-list .post .like-btn {
-  color: red;
-}
-
-.home-content .tweet-list .post .like-btn .like-num,
-.home-content .tweet-list .post .prev-like-btn .like-num {
+.home-content .tweet-list .post .like-btn .like-num {
   margin-left: 10px;
 }
 
-.home-content .tweet-list .post .like-btn:hover,
-.home-content .tweet-list .post .prev-like-btn:hover {
+.home-content .tweet-list .post .like-btn:hover {
   transform: scale(1.1, 1.1);
 }
 
-.home-content .tweet-list .post .like-btn .fa-heart,
-.home-content .tweet-list .post .prev-like-btn .fa-heart {
+.home-content .tweet-list .post .like-btn .fa-heart {
   transition: 0.2s;
 }
 
-.home-content .tweet-list .post .prev-like-btn:focus .far{
+.home-content .tweet-list .post .like-btn:focus .fas{
   color: red;
   transform: scale(1.2, 1.2);
 }

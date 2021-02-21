@@ -11,13 +11,7 @@
             <div class="user"><a href={% url 'twitter:profile' tweet.user.id %}><span>{{tweet.user}}</span></a></div>
             <p>{{ tweet.text }}</p>
             <div class="btn-right">
-              {% if check == False  %}
-                {{check}}
-                <a href="{% url 'twitter:like' tweet.id %}" class="prev-like-btn"><i class="far fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
-              {% else %}
-                {{check}}
-                  <a href="{% url 'twitter:like' tweet.id %}" class="like-btn"><i class="fas fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
-              {% endif %}
+              <a href="{% url 'twitter:like' tweet.id %}" class="like-btn"><i class="fas fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
             </div>
           </div>
         {% endfor %}
