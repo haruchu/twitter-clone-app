@@ -63,11 +63,13 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         form_class = TweetForm(self.request.POST or None, initial=initial_dict)
         # TemplateViewにあるcontextを取得
         context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
         # contextにformというキーでformという変数を追加
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
-        context['check'] = Like.objects.filter(user=self.request.user, tweet=self.kwargs.get('pk')).exists()
+        context['likes'] = Like.objects.all
+        context['check'] = Like.objects.exists()
         return context
     def get_success_url(self):
         return reverse('twitter:profile', kwargs={'pk': self.user.id})
