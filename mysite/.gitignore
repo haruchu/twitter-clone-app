@@ -5,7 +5,8 @@
 !*/
 # ホワイトリストに入れたいファイルを戸別に許可する
 !.gitignore
-!manage.py
+!/manage.py
 !/mysite/**
 !/twitter/**
+
 /twitter/*.pyc

@@ -9,6 +9,7 @@ urlpatterns = [
     path('confirm/', UserConfirmView.as_view(), name='confirm'),
     path('create/', UserCreateView.as_view(), name='create'),
     path('home/', HomeView.as_view(), name='home'),
+    path('home/<int:pk>/', HomeView.as_view(), name='home'),
     path('tweet/', CreateTweet.as_view(), name='tweet'),
     path("<int:tweet_id>/like/",like,name="like"),
     path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
