@@ -68,8 +68,8 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
-        context['likes'] = Like.objects.all
-        context['check'] = Like.objects.exists()
+        context['my_likes_ids'] = Like.objects.filter(
+            user=self.request.user).values_list('tweet_id', flat=True)
         return context
     def get_success_url(self):
         return reverse('twitter:profile', kwargs={'pk': self.user.id})
@@ -113,6 +113,7 @@ class ProfileView(generic.DetailView):
             context['connected'] = True if result else False
         return context
 
+
 def like(request, tweet_id):
     tweet = Tweet.objects.get(pk=tweet_id)
     is_like = Like.objects.filter(
@@ -123,7 +124,7 @@ def like(request, tweet_id):
         liking.delete()
         tweet.like -= 1
         tweet.save()
-        return redirect('twitter:home',pk=tweet.id)
+        return redirect('twitter:home', pk=tweet.id)
     # like
     tweet.like += 1
     tweet.save()
@@ -131,7 +132,7 @@ def like(request, tweet_id):
     like.user = request.user
     like.tweet = tweet
     like.save()
-    return redirect('twitter:home',pk=tweet.id)
+    return redirect('twitter:home', pk=tweet.id)
 
 
 def follow_view(request, *args, **kwargs):

@@ -13,9 +13,12 @@ class Tweet(models.Model):
     def __str__(self):
         return self.text
 
+
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like_user')
-    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE,related_name="tweet")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='like_user')
+    tweet = models.ForeignKey(
+        Tweet, on_delete=models.CASCADE, related_name="tweet")
 
 
 class FriendShip(models.Model):
@@ -28,4 +31,4 @@ class FriendShip(models.Model):
         unique_together = ('follower', 'followee')
 
     def __str__(self):
-        return (str(self.follower)+'⇔'+ str(self.followee))
+        return (str(self.follower)+'⇔' + str(self.followee))

@@ -1,5 +1,4 @@
 {% extends 'twitter/app_base.html' %}
-{% load my_filter %}
 
 {% block content %}
 <div class="home-content">
@@ -7,20 +6,15 @@
     <div class="row">
       <div class="col-6 tweet-list">
         <h4>ツイート</h4>
-        <h4>ログイン中のユーザー：　{{user}}</h4>
         {% for tweet in tweets %}
           <div class="post">
             <div class="user"><a href={% url 'twitter:profile' tweet.user.id %}><span>{{tweet.user}}</span></a></div>
             <p>{{ tweet.text }}</p>
             <div class="btn-right">
-              {% if check == False %}
-                <a href="{% url 'twitter:like' tweet.id %}" class="prev-like-btn"><i class="far fa-heart"></i><span class="like-num">a{{tweet.like}}</span></a>
+              {% if tweet.id in my_likes_ids %}
+                <a href="{% url 'twitter:like' tweet.id %}" class="like-btn"><i class="fas fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
               {% else %}
-                  {% if likes|is_any_userdata_exists:user and likes|is_any_tweetdata_exists:tweet %}
-                    <a href="{% url 'twitter:like' tweet.id %}" class="like-btn"><i class="fas fa-heart"></i><span class="like-num">b{{tweet.like}}</span></a>
-                  {% else %}
-                    <a href="{% url 'twitter:like' tweet.id %}" class="prev-like-btn"><i class="far fa-heart"></i><span class="like-num">c{{tweet.like}}</span></a>
-                  {% endif %}
+                <a href="{% url 'twitter:like' tweet.id %}" class="prev-like-btn"><i class="far fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
               {% endif %}
             </div>
           </div>
