@@ -116,21 +116,29 @@ class ProfileView(generic.DetailView):
 
 def like(request, tweet_id):
     tweet = Tweet.objects.get(pk=tweet_id)
+    like_num = Like.objects.filter(
+        user=request.user).filter(tweet=tweet).count()
+    if like_num > 0:
+        return redirect('twitter:home')
     tweet.like += 1
     tweet.save()
     like = Like()
     like.user = request.user
     like.tweet = tweet
     like.save()
-    return redirect('twitter:home', pk=tweet.id)
+    return redirect('twitter:home')
 
 def unlike(request, tweet_id):
     tweet = Tweet.objects.get(pk=tweet_id)
+    like_num = Like.objects.filter(
+        user=request.user).filter(tweet=tweet).count()
+    if like_num == 0:
+        return redirect('twitter:home')
     liking = Like.objects.get(tweet_id=tweet_id, user=request.user)
     liking.delete()
     tweet.like -= 1
     tweet.save()
-    return redirect('twitter:home', pk=tweet.id)
+    return redirect('twitter:home')
 
 def follow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)
