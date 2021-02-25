@@ -113,7 +113,6 @@ class ProfileView(generic.DetailView):
             context['connected'] = True if result else False
         return context
 
-
 def like(request, tweet_id):
     tweet = Tweet.objects.get(pk=tweet_id)
     like_num = Like.objects.filter(
