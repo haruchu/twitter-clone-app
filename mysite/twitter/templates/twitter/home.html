@@ -10,6 +10,13 @@
           <div class="post">
             <div class="user"><a href={% url 'twitter:profile' tweet.user.id %}><span>{{tweet.user}}</span></a></div>
             <p>{{ tweet.text }}</p>
+            <div class="btn-right">
+              {% if tweet.id in my_likes_ids %}
+                <a href="{% url 'twitter:unlike' tweet.id %}" class="like-btn"><i class="fas fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
+              {% else %}
+                <a href="{% url 'twitter:like' tweet.id %}" class="prev-like-btn"><i class="far fa-heart"></i><span class="like-num">{{tweet.like}}</span></a>
+              {% endif %}
+            </div>
           </div>
         {% endfor %}
       </div>

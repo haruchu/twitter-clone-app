@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from .forms import TweetForm
-from .models import Tweet, FriendShip
+from .models import Tweet, FriendShip, Like
 from .helpers import get_current_user
 
 
@@ -63,12 +63,14 @@ class HomeView(LoginRequiredMixin, generic.FormView):
         form_class = TweetForm(self.request.POST or None, initial=initial_dict)
         # TemplateViewにあるcontextを取得
         context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
         # contextにformというキーでformという変数を追加
         context["form"] = form_class
         # contextにtweetsというキーでツイート一覧を追加
         context["tweets"] = Tweet.objects.all()
+        context['my_likes_ids'] = Like.objects.filter(
+            user=self.request.user).values_list('tweet_id', flat=True)
         return context
-
     def get_success_url(self):
         return reverse('twitter:profile', kwargs={'pk': self.user.id})
 
@@ -111,6 +113,31 @@ class ProfileView(generic.DetailView):
             context['connected'] = True if result else False
         return context
 
+def like(request, tweet_id):
+    tweet = Tweet.objects.get(pk=tweet_id)
+    like_num = Like.objects.filter(
+        user=request.user).filter(tweet=tweet).count()
+    if like_num > 0:
+        return redirect('twitter:home')
+    tweet.like += 1
+    tweet.save()
+    like = Like()
+    like.user = request.user
+    like.tweet = tweet
+    like.save()
+    return redirect('twitter:home')
+
+def unlike(request, tweet_id):
+    tweet = Tweet.objects.get(pk=tweet_id)
+    like_num = Like.objects.filter(
+        user=request.user).filter(tweet=tweet).count()
+    if like_num == 0:
+        return redirect('twitter:home')
+    liking = Like.objects.get(tweet_id=tweet_id, user=request.user)
+    liking.delete()
+    tweet.like -= 1
+    tweet.save()
+    return redirect('twitter:home')
 
 def follow_view(request, *args, **kwargs):
     follower = User.objects.get(username=request.user)

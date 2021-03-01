@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import IndexView, UserInputView, UserConfirmView, UserCreateView, HomeView, CreateTweet, ProfileView, follow_view, unfollow_view
+from .views import IndexView, UserInputView, UserConfirmView, UserCreateView, HomeView, CreateTweet, ProfileView, follow_view, unfollow_view, like,unlike
 
 app_name = 'twitter'
 urlpatterns = [
@@ -9,8 +9,11 @@ urlpatterns = [
     path('confirm/', UserConfirmView.as_view(), name='confirm'),
     path('create/', UserCreateView.as_view(), name='create'),
     path('home/', HomeView.as_view(), name='home'),
+    path('home/<int:pk>/', HomeView.as_view(), name='home'),
     path('tweet/', CreateTweet.as_view(), name='tweet'),
-    path('<int:pk>/', ProfileView.as_view(), name='profile'),
-    path('<int:pk>/follow', follow_view, name='follow'),
-    path('<int:pk>/unfollow', unfollow_view, name='unfollow'),
+    path("<int:tweet_id>/like/", like, name="like"),
+    path("<int:tweet_id>/unlike/", unlike, name="unlike"),
+    path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
+    path('profile/<int:pk>/follow', follow_view, name='follow'),
+    path('profile/<int:pk>/unfollow', unfollow_view, name='unfollow'),
 ]

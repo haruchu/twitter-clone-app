@@ -207,6 +207,48 @@ header .logo-title {
   border-radius: 20px;
 }
 
+/* いいね */
+.home-content .tweet-list .post .btn-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.home-content .tweet-list .post .prev-like-btn,
+.home-content .tweet-list .post .like-btn {
+  padding: 8px;
+  margin-top: 8px;
+  display: inline-block;
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.home-content .tweet-list .post .prev-like-btn {
+  color: pink;
+}
+
+.home-content .tweet-list .post .like-btn {
+  color: red;
+}
+.home-content .tweet-list .post .prev-like-btn .like-num,
+.home-content .tweet-list .post .like-btn .like-num {
+  margin-left: 10px;
+}
+
+.home-content .tweet-list .post .prev-like-btn:hover,
+.home-content .tweet-list .post .like-btn:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.home-content .tweet-list .post .prev-like-btn .fa-heart,
+.home-content .tweet-list .post .like-btn .fa-heart {
+  transition: 0.2s;
+}
+
+.home-content .tweet-list .post .prev-like-btn:focus .far{
+  color: red;
+  transform: scale(1.2, 1.2);
+}
+
 .home-content .tweet-form {
   display: flex;
   text-align: center;
